@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://ciyq566g88571"]
+
+[node name="next_map_menu" type="ColorRect"]
+offset_left = 201.0
+offset_top = 60.0
+offset_right = 951.0
+offset_bottom = 560.0
+color = Color(0.364706, 0.364706, 0.364706, 1)
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 319.0
+offset_top = 62.0
+offset_right = 427.0
+offset_bottom = 88.0
+text = "Pick next race"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="list_container" type="HBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 25.0
+offset_top = 270.0
+offset_right = 725.0
+offset_bottom = 470.0
+theme_override_constants/separation = 50
+alignment = 1

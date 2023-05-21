@@ -1,0 +1,101 @@
+[gd_scene load_steps=13 format=3 uid="uid://bve87dj7facc"]
+
+[ext_resource type="Script" path="res://scripts/car_scene.gd" id="1_eb7p5"]
+[ext_resource type="Script" path="res://scripts/hud_group.gd" id="2_4kxuh"]
+[ext_resource type="PackedScene" uid="uid://bvc4aolsrh27p" path="res://scenes/maps/map2.tscn" id="3_rn3gh"]
+[ext_resource type="Script" path="res://scripts/modifiers/3_enemies_modifier.gd" id="4_jqx27"]
+[ext_resource type="Script" path="res://scripts/modifiers/laps_2_mod.gd" id="5_dcdt1"]
+[ext_resource type="PackedScene" uid="uid://xmuojpccylpo" path="res://scenes/maps/map3.tscn" id="6_0efs7"]
+[ext_resource type="PackedScene" uid="uid://b85qjqbim8g6a" path="res://scenes/maps/map1.tscn" id="6_diirk"]
+[ext_resource type="Script" path="res://scripts/map/map_group.gd" id="7_13q30"]
+[ext_resource type="Script" path="res://scripts/camera_gimbal.gd" id="7_nha7u"]
+[ext_resource type="PackedScene" uid="uid://ds700uqnqjj0f" path="res://scenes/maps/map4.tscn" id="9_4sfje"]
+[ext_resource type="Script" path="res://scripts/map/map_list.gd" id="9_tnjxy"]
+[ext_resource type="Script" path="res://scripts/car/drivers_group.gd" id="12_nww6k"]
+
+[node name="Node3D" type="Node3D"]
+script = ExtResource("1_eb7p5")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.781477, 0.623934, 0, -0.623934, 0.781477, 0, 26.2502, 0)
+
+[node name="hud_group" type="Control" parent="." groups=["hud_group"]]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1150.0
+offset_bottom = 646.0
+script = ExtResource("2_4kxuh")
+
+[node name="lap_count" type="Label" parent="hud_group"]
+layout_mode = 0
+offset_left = 993.0
+offset_top = 18.0
+offset_right = 1122.0
+offset_bottom = 77.0
+text = "LAP 0/X"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="position_count" type="Label" parent="hud_group"]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 33.0
+offset_right = 149.0
+offset_bottom = 198.0
+text = "POSITION 1/X
+
+1. car
+2. car
+3. car
+4. car
+"
+horizontal_alignment = 1
+
+[node name="lap_percentage" type="Label" parent="hud_group"]
+layout_mode = 0
+offset_left = 994.0
+offset_top = 75.0
+offset_right = 1123.0
+offset_bottom = 134.0
+text = "0% done"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="car_speedo" type="Label" parent="hud_group" groups=["speedo"]]
+layout_mode = 0
+offset_left = 994.0
+offset_top = 561.0
+offset_right = 1123.0
+offset_bottom = 620.0
+text = "0 km/h"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="race_info" type="Label" parent="hud_group"]
+layout_mode = 0
+offset_left = 531.0
+offset_top = 168.0
+offset_right = 660.0
+offset_bottom = 227.0
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="map_group" type="Node" parent="." groups=["map_group"]]
+script = ExtResource("7_13q30")
+modifiers = Array[Resource]([ExtResource("4_jqx27"), ExtResource("5_dcdt1")])
+
+[node name="map_list" type="Node" parent="." groups=["map_list"]]
+script = ExtResource("9_tnjxy")
+maps = Array[Resource]([ExtResource("6_diirk"), ExtResource("3_rn3gh"), ExtResource("6_0efs7"), ExtResource("9_4sfje")])
+
+[node name="camera_gimbal" type="Node3D" parent="." groups=["camera_group"]]
+script = ExtResource("7_nha7u")
+
+[node name="inner_gimbal" type="Node3D" parent="camera_gimbal"]
+transform = Transform3D(0.707107, -0.612371, 0.353553, 0, 0.499999, 0.866024, -0.707107, -0.612371, 0.353553, 10, 10, 10)
+
+[node name="camera" type="Camera3D" parent="camera_gimbal/inner_gimbal"]
+fov = 90.0
+
+[node name="drivers_group" type="Node" parent="." groups=["drivers_group"]]
+script = ExtResource("12_nww6k")

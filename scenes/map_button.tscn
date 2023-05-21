@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://bp1yvnv2d231l"]
+
+[ext_resource type="Script" path="res://scripts/hud/map_button.gd" id="1_gkl4g"]
+
+[node name="Button" type="Button"]
+custom_minimum_size = Vector2(200, 200)
+text = "map1"
+script = ExtResource("1_gkl4g")
+
+[connection signal="pressed" from="." to="." method="_on_pressed"]
