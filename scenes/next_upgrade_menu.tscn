@@ -1,0 +1,51 @@
+[gd_scene load_steps=4 format=3 uid="uid://bqt4fksmryy2l"]
+
+[ext_resource type="Texture2D" uid="uid://b4f7esqsnfmpc" path="res://sidecar.png" id="2_x2j6q"]
+[ext_resource type="Texture2D" uid="uid://d02h2tlwa1chx" path="res://black.png" id="3_j5sxf"]
+
+[sub_resource type="Theme" id="Theme_ey10s"]
+default_font_size = 38
+
+[node name="next_upgrade_menu" type="ColorRect"]
+offset_left = 140.0
+offset_top = 71.0
+offset_right = 910.0
+offset_bottom = 571.0
+color = Color(0.364706, 0.364706, 0.364706, 1)
+
+[node name="list_container" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 27.0
+offset_top = 1.0
+offset_right = 408.0
+offset_bottom = 408.0
+theme_override_constants/separation = 140
+alignment = 1
+
+[node name="Sidecar" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 511.0
+offset_top = -3.0
+offset_right = 873.0
+offset_bottom = 497.0
+scale = Vector2(1.01105, 1.01105)
+texture = ExtResource("2_x2j6q")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 388.0
+offset_top = -17.0
+offset_right = 661.0
+offset_bottom = 502.0
+texture = ExtResource("3_j5sxf")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 6.0
+offset_top = 12.0
+offset_right = 449.0
+offset_bottom = 79.0
+theme = SubResource("Theme_ey10s")
+text = "PICK NEXT UPGRADE"
+horizontal_alignment = 1
+vertical_alignment = 1

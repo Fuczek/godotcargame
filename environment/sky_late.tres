@@ -1,0 +1,11 @@
+[gd_resource type="Sky" load_steps=3 format=3 uid="uid://cvu4lmeucgcq1"]
+
+[ext_resource type="Texture2D" uid="uid://d1wi3bgvc4kxv" path="res://pixil-frame-0.png" id="1_d0423"]
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_kmspb"]
+panorama = ExtResource("1_d0423")
+filter = false
+
+[resource]
+sky_material = SubResource("PanoramaSkyMaterial_kmspb")
+radiance_size = 2

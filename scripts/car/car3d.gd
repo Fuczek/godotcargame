@@ -1,11 +1,27 @@
 extends VehicleBody3D
 
+@export var rpm_curve : Curve = preload("res://rpm_curve.tres")
+
+@export var MAX_ENGINE_FORCE = 700.0
+@export var MAX_BRAKE_FORCE = 50.0
+
+@export var drive_ratios : Array = [3.0, 2.67, 2.01, 1.59, 1.32, 1.13, 1.1]
+@export var reverse_ratio : float = 2.5
+@export var final_drive_ratio : float = 3.38
+@export var wheel_radius : float = 0.4 #meters
+
+var current_gear : int = 0
+var speedo : float = 0.0
+var default_rpms : float = 1000
+var current_rpms : float = default_rpms
+var maximum_rpms : float = 8000
+var calculated_rpm : float
+
 var max_rpm = 1500
 var max_torque = 250
 @export_range(0, 1, 0.1) var acceleration : float = 1
 
 var prev_pos
-var speedo = 0
 var started = false
 var starting_pos
 var steering_values : Array

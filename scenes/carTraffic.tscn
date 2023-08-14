@@ -1,7 +1,7 @@
-[gd_scene load_steps=15 format=3 uid="uid://cutlcf1vup3tv"]
+[gd_scene load_steps=15 format=3 uid="uid://x4q6mny4xvcd"]
 
-[ext_resource type="Script" path="res://scripts/car/car3dai.gd" id="1_t55vi"]
-[ext_resource type="Texture2D" uid="uid://4dp18ndeky3g" path="res://porscheconvertedjoined_Image_8.png" id="2_b0y2l"]
+[ext_resource type="Script" path="res://scripts/car/car3dtraffic.gd" id="1_dhd78"]
+[ext_resource type="Texture2D" uid="uid://4dp18ndeky3g" path="res://porscheconvertedjoined_Image_8.png" id="2_0d157"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7sfnv"]
 albedo_color = Color(0.67451, 0.192157, 0.239216, 1)
@@ -36,7 +36,6 @@ resource_name = "Material_10"
 transparency = 4
 cull_mode = 2
 vertex_color_use_as_albedo = true
-albedo_color = Color(0.054902, 0.552941, 0.662745, 1)
 texture_filter = 2
 texture_repeat = false
 
@@ -55,7 +54,7 @@ alpha_scissor_threshold = 0.05
 alpha_antialiasing_mode = 0
 cull_mode = 2
 vertex_color_use_as_albedo = true
-albedo_texture = ExtResource("2_b0y2l")
+albedo_texture = ExtResource("2_0d157")
 texture_filter = 2
 texture_repeat = false
 
@@ -116,7 +115,7 @@ _surfaces = [{
 }]
 blend_shape_mode = 0
 
-[sub_resource type="ArrayMesh" id="ArrayMesh_u7bb3"]
+[sub_resource type="ArrayMesh" id="ArrayMesh_uyjac"]
 resource_name = "porscheconvertedjoined_Mesh_24"
 _surfaces = [{
 "aabb": AABB(-1.09669, 2.68152, 0.124596, 2.28187, 0.181196, 0.25001),
@@ -177,14 +176,14 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_vu672")
 
-[node name="car" type="VehicleBody3D" groups=["ai_driver", "driver"]]
-mass = 75.0
+[node name="cartraffic" type="VehicleBody3D" groups=["traffic"]]
+mass = 400.0
 center_of_mass_mode = 1
 center_of_mass = Vector3(0, -0.2, 0)
-script = ExtResource("1_t55vi")
+script = ExtResource("1_dhd78")
 
 [node name="body" type="MeshInstance3D" parent="."]
-transform = Transform3D(1.91069e-15, 4.37114e-08, 1, 1, -4.37114e-08, 0, 4.37114e-08, 1, -4.37114e-08, 0, 0, 0)
+transform = Transform3D(4.37114e-08, 1, 8.74228e-08, 1, -4.37114e-08, -3.59989e-21, 3.82137e-15, 8.74228e-08, -1, 0, 0, 0)
 visible = false
 mesh = SubResource("CylinderMesh_ankmt")
 
@@ -245,8 +244,8 @@ transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 
 shape = SubResource("CapsuleShape3D_82ypk")
 
 [node name="body_model" type="MeshInstance3D" parent="."]
-transform = Transform3D(0.636838, 0, 0, 0, -7.5917e-08, -0.636837, 0, 0.636837, -7.5917e-08, -0.00355502, -0.411416, 0.320461)
-mesh = SubResource("ArrayMesh_u7bb3")
+transform = Transform3D(0.636838, 0, 0, 0, -2.7837e-08, -0.636837, 0, 0.636837, -2.7837e-08, -0.00355502, -0.411416, 0.320461)
+mesh = SubResource("ArrayMesh_uyjac")
 skeleton = NodePath("")
 
 [node name="marker" type="Marker3D" parent="."]
@@ -264,28 +263,16 @@ debug_shape_thickness = 5
 
 [node name="Label3D" type="Label3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.29862, 0)
-billboard = 1
-double_sided = false
-text = "fuczek"
-font_size = 150
-
-[node name="steering_label" type="Label3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.08005, 0)
 visible = false
 billboard = 1
 double_sided = false
-text = "0.0"
+text = "traffic"
 font_size = 150
 
-[node name="lap_completed" type="Label3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.34409, 0)
+[node name="movement_dir_label" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.60746, 0)
+visible = false
 billboard = 1
 double_sided = false
-text = "lap 1"
-font_size = 150
-
-[node name="information_label" type="Label3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.22907, 0)
-billboard = 1
-double_sided = false
-font_size = 150
+text = "movement dir"
+font_size = 300

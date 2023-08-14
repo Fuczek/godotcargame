@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://cvuyosgdglkwl"]
+
+[ext_resource type="Texture2D" uid="uid://bnua14bedurks" path="res://textures/icon.svg" id="1_arma7"]
+
+[node name="modifier_icon" type="TextureRect"]
+custom_minimum_size = Vector2(64, 64)
+texture = ExtResource("1_arma7")
+expand_mode = 1

@@ -60,7 +60,7 @@ func collect_checkpoint(body_name):
 	if (body_name == self.name):
 		if self.next_checkpoint_id < checkpoints.size():
 			self.last_checkpoint_position = checkpoints[self.last_checkpoint_id]
-			self.next_checkpoint_position = checkpoints[self.next_checkpoint_id] + Vector3(randf_range(-2, 2), 0, randf_range(-2, 2))
+			self.next_checkpoint_position = checkpoints[self.next_checkpoint_id] + Vector3(randf_range(-1, 1), 0, randf_range(-1, 1))
 			self.next_checkpoint_id += 1
 			self.last_checkpoint_id += 1
 			self.slow = 0
@@ -84,6 +84,8 @@ func reset_car():
 		self.rotation.z = 0
 		self.engine_force = 0
 		self.steering = 0
+		self.linear_velocity = Vector3.ZERO
+		self.angular_velocity = Vector3.ZERO
 		
 	self.resetting = false
 	$information_label.text = ""

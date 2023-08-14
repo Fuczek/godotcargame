@@ -20,6 +20,11 @@ func load_checkpoint_instances(checkpoint_list):
 		checkpoint_instance.name = str(id+1)
 		checkpoint_instance.position = location_to_spawn_next_checkpoint
 		self.add_child(checkpoint_instance)
+		if (id+1 == checkpoint_list.size()):
+			checkpoint_instance.look_at(checkpoint_list[0], Vector3(0, 1, 0))
+		else:
+			checkpoint_instance.look_at(checkpoint_list[id+1], Vector3(0, 1, 0))
+		checkpoint_instance.rotation.x = 0
 
 #func _start_lap():
 #	for id in curve.get_point_count():

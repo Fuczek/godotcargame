@@ -1,9 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://dqu84p36jl285"]
+[gd_scene load_steps=9 format=3 uid="uid://dqu84p36jl285"]
 
 [ext_resource type="Script" path="res://scripts/map/checkpoint.gd" id="1_5625o"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_7c8kq"]
-size = Vector3(1, 1, 0.2)
+size = Vector3(20, 9, 2)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1ofph"]
 transparency = 1
@@ -23,16 +23,19 @@ height = 4.0
 [sub_resource type="SphereShape3D" id="SphereShape3D_pcyt5"]
 radius = 15.0
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_js6ok"]
+size = Vector3(20, 100, 20)
+
 [node name="Checkpoint" type="Area3D"]
 script = ExtResource("1_5625o")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(20, 0, 0, 0, 20, 0, 0, 0, 20, 0, 0, 0)
 visible = false
 mesh = SubResource("BoxMesh_7c8kq")
 
 [node name="checkpoint_ball" type="MeshInstance3D" parent="."]
 transform = Transform3D(20, 0, 0, 0, 20, 0, 0, 0, 20, 0, 0, 0)
+visible = false
 mesh = SubResource("SphereMesh_dqwj5")
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
@@ -46,6 +49,11 @@ visible = false
 mesh = SubResource("CylinderMesh_itcl8")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+visible = false
 shape = SubResource("SphereShape3D_pcyt5")
+disabled = true
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_js6ok")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

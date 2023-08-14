@@ -1,23 +1,37 @@
-[gd_scene load_steps=13 format=3 uid="uid://bve87dj7facc"]
+[gd_scene load_steps=22 format=3 uid="uid://bowc2q2f0qoeu"]
 
 [ext_resource type="Script" path="res://scripts/car_scene.gd" id="1_eb7p5"]
 [ext_resource type="Script" path="res://scripts/hud_group.gd" id="2_4kxuh"]
-[ext_resource type="PackedScene" uid="uid://bvc4aolsrh27p" path="res://scenes/maps/map2.tscn" id="3_rn3gh"]
-[ext_resource type="Script" path="res://scripts/modifiers/3_enemies_modifier.gd" id="4_jqx27"]
-[ext_resource type="Script" path="res://scripts/modifiers/laps_2_mod.gd" id="5_dcdt1"]
-[ext_resource type="PackedScene" uid="uid://xmuojpccylpo" path="res://scenes/maps/map3.tscn" id="6_0efs7"]
-[ext_resource type="PackedScene" uid="uid://b85qjqbim8g6a" path="res://scenes/maps/map1.tscn" id="6_diirk"]
+[ext_resource type="Texture2D" uid="uid://danucjkbllvbc" path="res://textures/road.jpg" id="3_w6hqa"]
+[ext_resource type="Script" path="res://scripts/modifiers/laps_1_mod.gd" id="4_6kspr"]
+[ext_resource type="Texture2D" uid="uid://bg2ak2vx47ynp" path="res://textures/red.jpg" id="4_diauv"]
+[ext_resource type="Script" path="res://scripts/modifiers/enemies_3_modifier.gd" id="5_rkbsc"]
 [ext_resource type="Script" path="res://scripts/map/map_group.gd" id="7_13q30"]
+[ext_resource type="PackedScene" uid="uid://by265jxmxln6t" path="res://scenes/maps/map6.tscn" id="7_dinut"]
 [ext_resource type="Script" path="res://scripts/camera_gimbal.gd" id="7_nha7u"]
-[ext_resource type="PackedScene" uid="uid://ds700uqnqjj0f" path="res://scenes/maps/map4.tscn" id="9_4sfje"]
 [ext_resource type="Script" path="res://scripts/map/map_list.gd" id="9_tnjxy"]
+[ext_resource type="Script" path="res://scenes/environment_data.gd" id="10_68b52"]
+[ext_resource type="Sky" uid="uid://bdj1r2y2bb344" path="res://environment/sky_early.tres" id="10_cye5d"]
+[ext_resource type="PackedScene" uid="uid://b85qjqbim8g6a" path="res://scenes/maps/map1.tscn" id="10_cyy82"]
+[ext_resource type="PackedScene" uid="uid://cy2hwv6itkhcu" path="res://scenes/maps/map7.tscn" id="11_kfjph"]
+[ext_resource type="Script" path="res://scripts/player_data.gd" id="11_royli"]
+[ext_resource type="Script" path="res://scripts/modifiers/upgrade_list.gd" id="11_w2dpw"]
 [ext_resource type="Script" path="res://scripts/car/drivers_group.gd" id="12_nww6k"]
+[ext_resource type="Script" path="res://scripts/modifiers/nitrous_type_burst.gd" id="12_xd47j"]
+[ext_resource type="Script" path="res://scripts/modifiers/nitrous_type_hold.gd" id="13_5tn05"]
+[ext_resource type="Script" path="res://scripts/modifiers/perfect_start_1_modifier.gd" id="16_jwuu6"]
 
-[node name="Node3D" type="Node3D"]
+[sub_resource type="Environment" id="Environment_w23im"]
+background_mode = 2
+background_energy_multiplier = 0.27
+sky = ExtResource("10_cye5d")
+ssr_max_steps = 296
+ssr_fade_in = 0.152868
+ssr_fade_out = 0.0717937
+glow_enabled = true
+
+[node name="game" type="Node3D" groups=["game"]]
 script = ExtResource("1_eb7p5")
-
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.781477, 0.623934, 0, -0.623934, 0.781477, 0, 26.2502, 0)
 
 [node name="hud_group" type="Control" parent="." groups=["hud_group"]]
 layout_mode = 3
@@ -36,6 +50,21 @@ text = "LAP 0/X"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="race_count" type="Label" parent="hud_group"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 47.0
+offset_top = -70.0
+offset_right = 130.0
+offset_bottom = -44.0
+grow_vertical = 0
+text = "Race: 1
+9:00"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="position_count" type="Label" parent="hud_group"]
 layout_mode = 0
 offset_left = 20.0
@@ -43,6 +72,7 @@ offset_top = 33.0
 offset_right = 149.0
 offset_bottom = 198.0
 text = "POSITION 1/X
+TARGET: 
 
 1. car
 2. car
@@ -67,35 +97,123 @@ offset_left = 994.0
 offset_top = 561.0
 offset_right = 1123.0
 offset_bottom = 620.0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 19
+theme_override_font_sizes/font_size = 29
 text = "0 km/h"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="nitrous_bar" type="Label" parent="hud_group"]
+layout_mode = 0
+offset_left = 994.0
+offset_top = 474.0
+offset_right = 1123.0
+offset_bottom = 533.0
+text = "NO BOOST"
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="race_info" type="Label" parent="hud_group"]
 layout_mode = 0
-offset_left = 531.0
-offset_top = 168.0
-offset_right = 660.0
-offset_bottom = 227.0
+offset_left = 2.0
+offset_top = 137.0
+offset_right = 1154.0
+offset_bottom = 275.0
+theme_override_font_sizes/font_size = 30
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="rpm_bar" type="TextureProgressBar" parent="hud_group"]
+layout_mode = 0
+offset_left = 995.0
+offset_top = 526.0
+offset_right = 1011.0
+offset_bottom = 542.0
+scale = Vector2(8, 2)
+max_value = 8000.0
+texture_under = ExtResource("3_w6hqa")
+texture_progress = ExtResource("4_diauv")
+
+[node name="rpm_value" type="Label" parent="hud_group"]
+layout_mode = 0
+offset_left = 1000.0
+offset_top = 528.0
+offset_right = 1120.0
+offset_bottom = 554.0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 8
+text = "rpm"
+horizontal_alignment = 1
+autowrap_mode = 1
+
+[node name="modifiers_list" type="HBoxContainer" parent="hud_group"]
+layout_mode = 0
+offset_left = 185.0
+offset_top = 25.0
+offset_right = 691.0
+offset_bottom = 89.0
+theme_override_constants/separation = 13
+
 [node name="map_group" type="Node" parent="." groups=["map_group"]]
 script = ExtResource("7_13q30")
-modifiers = Array[Resource]([ExtResource("4_jqx27"), ExtResource("5_dcdt1")])
+default_modifiers = Array[Resource]([ExtResource("5_rkbsc"), ExtResource("4_6kspr")])
 
 [node name="map_list" type="Node" parent="." groups=["map_list"]]
 script = ExtResource("9_tnjxy")
-maps = Array[Resource]([ExtResource("6_diirk"), ExtResource("3_rn3gh"), ExtResource("6_0efs7"), ExtResource("9_4sfje")])
+available_maps_to_roll = Array[Resource]([ExtResource("7_dinut"), ExtResource("10_cyy82"), ExtResource("11_kfjph")])
 
 [node name="camera_gimbal" type="Node3D" parent="." groups=["camera_group"]]
 script = ExtResource("7_nha7u")
 
 [node name="inner_gimbal" type="Node3D" parent="camera_gimbal"]
-transform = Transform3D(0.707107, -0.612371, 0.353553, 0, 0.499999, 0.866024, -0.707107, -0.612371, 0.353553, 10, 10, 10)
+transform = Transform3D(-1, 0, -8.74227e-08, 0, 0.999998, 0, 8.74228e-08, 0, -0.999999, 0, 5, -12)
 
 [node name="camera" type="Camera3D" parent="camera_gimbal/inner_gimbal"]
-fov = 90.0
+fov = 70.0
+
+[node name="upgrade_list" type="Node" parent="." groups=["upgrade_list"]]
+script = ExtResource("11_w2dpw")
+available_upgrades_to_roll = Array[Resource]([ExtResource("13_5tn05"), ExtResource("12_xd47j"), ExtResource("16_jwuu6")])
 
 [node name="drivers_group" type="Node" parent="." groups=["drivers_group"]]
 script = ExtResource("12_nww6k")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." groups=["environment_group"]]
+environment = SubResource("Environment_w23im")
+script = ExtResource("10_68b52")
+
+[node name="sunlight_early" type="DirectionalLight3D" parent="WorldEnvironment" groups=["sunlight"]]
+transform = Transform3D(1, 0, 0, 0, 0.393942, 0.919135, 0, -0.919135, 0.393942, 0, 53.8771, 0)
+light_color = Color(0.933333, 0.815686, 0.611765, 1)
+light_energy = 3.0
+shadow_enabled = true
+shadow_bias = 10.0
+shadow_opacity = 0.7
+shadow_blur = 0.0
+directional_shadow_mode = 0
+sky_mode = 1
+
+[node name="sunlight_late" type="DirectionalLight3D" parent="WorldEnvironment" groups=["sunlight"]]
+transform = Transform3D(1, 0, 0, 0, 0.894934, 0.446198, 0, -0.446198, 0.894934, 0, 46.7119, 0)
+light_color = Color(0.992157, 0.619608, 0.403922, 1)
+light_energy = 3.0
+shadow_enabled = true
+shadow_opacity = 0.7
+shadow_blur = 0.0
+directional_shadow_mode = 0
+sky_mode = 1
+
+[node name="sunlight_night" type="DirectionalLight3D" parent="WorldEnvironment" groups=["sunlight"]]
+transform = Transform3D(1, 0, 0, 0, 0.781477, 0.623934, 0, -0.623934, 0.781477, 0, 39.1477, 0)
+light_color = Color(0.160784, 0.270588, 0.27451, 1)
+light_energy = 3.0
+shadow_enabled = true
+shadow_bias = 10.0
+shadow_opacity = 0.7
+shadow_blur = 0.0
+directional_shadow_mode = 0
+sky_mode = 1
+
+[node name="player_data" type="Node" parent="." groups=["player_data"]]
+script = ExtResource("11_royli")
