@@ -1,0 +1,229 @@
+[gd_scene load_steps=16 format=3 uid="uid://dtlx6vwvcmdv2"]
+
+[ext_resource type="Script" path="res://scripts/car/car3dplayer.gd" id="1_peyeq"]
+[ext_resource type="ArrayMesh" uid="uid://bs5rof1a4o7lg" path="res://golf-joined.tres" id="2_oquvq"]
+[ext_resource type="Script" path="res://scripts/camera_pivot.gd" id="3_47ovy"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rw88o"]
+albedo_color = Color(0.67451, 0.192157, 0.239216, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_ankmt"]
+material = SubResource("StandardMaterial3D_rw88o")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gfu1n"]
+albedo_color = Color(0.235294, 0.231373, 0.211765, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_xhvem"]
+material = SubResource("StandardMaterial3D_gfu1n")
+top_radius = 0.4
+bottom_radius = 0.4
+height = 0.5
+radial_segments = 16
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_vfblm"]
+size = Vector3(1.97534, 5.40888, 1.92321)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3cg5r"]
+albedo_color = Color(0.784314, 0, 0.160784, 1)
+emission_enabled = true
+emission = Color(0.705882, 0, 0, 1)
+emission_energy_multiplier = 1.48
+billboard_mode = 1
+
+[sub_resource type="Curve" id="Curve_igrm8"]
+max_value = 17.0
+_data = [Vector2(0.0160643, 0), 0.0, 60.4714, 0, 0, Vector2(0.987952, 17), 3.14851, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_onr4h"]
+curve = SubResource("Curve_igrm8")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_vqe80"]
+emission_shape = 2
+emission_sphere_radius = 0.8
+particle_flag_align_y = true
+spread = 12.06
+gravity = Vector3(0, 0, 0)
+initial_velocity_max = 14.71
+angular_velocity_max = 487.06
+linear_accel_max = 5.41
+linear_accel_curve = SubResource("CurveTexture_onr4h")
+color = Color(0.231373, 0.262745, 0.219608, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_hy2mp"]
+size = Vector2(1.5, 0.15)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yf41d"]
+albedo_color = Color(0.223529, 0.223529, 0.223529, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_pt1b6"]
+size = Vector3(0.1, 0.1, 0.1)
+
+[node name="car" type="VehicleBody3D" groups=["driver", "player"]]
+mass = 4000.0
+center_of_mass_mode = 1
+center_of_mass = Vector3(0, -0.1, 0)
+script = ExtResource("1_peyeq")
+MAX_ENGINE_FORCE = 3200.0
+
+[node name="body" type="MeshInstance3D" parent="."]
+transform = Transform3D(1.91069e-15, 4.37114e-08, 1, 1, -4.37114e-08, 0, 4.37114e-08, 1, -4.37114e-08, 0, 0, 0)
+visible = false
+mesh = SubResource("CylinderMesh_ankmt")
+
+[node name="front_left_wheel" type="VehicleWheel3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.712939, -0.201364, 1.84554)
+use_as_traction = true
+use_as_steering = true
+wheel_radius = 0.4
+suspension_travel = 10.0
+suspension_stiffness = 100.0
+damping_compression = 1.9
+damping_relaxation = 2.0
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="front_left_wheel"]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
+visible = false
+mesh = SubResource("CylinderMesh_xhvem")
+
+[node name="front_right_wheel" type="VehicleWheel3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.713, -0.201566, 1.8458)
+use_as_traction = true
+use_as_steering = true
+wheel_radius = 0.4
+suspension_travel = 10.0
+suspension_stiffness = 100.0
+damping_compression = 1.9
+damping_relaxation = 2.0
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="front_right_wheel"]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
+visible = false
+mesh = SubResource("CylinderMesh_xhvem")
+
+[node name="back_left_wheel" type="VehicleWheel3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.712939, -0.228535, -2.24521)
+use_as_traction = true
+wheel_radius = 0.4
+suspension_travel = 10.0
+suspension_stiffness = 100.0
+damping_compression = 1.9
+damping_relaxation = 2.0
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="back_left_wheel"]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
+visible = false
+mesh = SubResource("CylinderMesh_xhvem")
+
+[node name="back_right_wheel" type="VehicleWheel3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.713, -0.228737, -2.24521)
+use_as_traction = true
+wheel_radius = 0.4
+suspension_travel = 10.0
+suspension_stiffness = 100.0
+damping_compression = 1.9
+damping_relaxation = 2.0
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="back_right_wheel"]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
+visible = false
+mesh = SubResource("CylinderMesh_xhvem")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.354776, 0)
+shape = SubResource("BoxShape3D_vfblm")
+
+[node name="marker" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2)
+visible = false
+
+[node name="forward_raycast" type="RayCast3D" parent="."]
+visible = false
+target_position = Vector3(0, 0, 5)
+debug_shape_custom_color = Color(0.756863, 0.0823529, 0.439216, 1)
+debug_shape_thickness = 5
+
+[node name="side_raycast" type="RayCast3D" parent="."]
+visible = false
+target_position = Vector3(5, 0, 0)
+debug_shape_custom_color = Color(0.858824, 0.415686, 0, 1)
+debug_shape_thickness = 5
+
+[node name="name" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.29862, 0)
+visible = false
+billboard = 1
+double_sided = false
+font_size = 150
+
+[node name="steering_label" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.08005, 0)
+visible = false
+billboard = 1
+double_sided = false
+text = "0.0"
+font_size = 150
+
+[node name="lap_completed" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.34409, 0)
+visible = false
+billboard = 1
+double_sided = false
+text = "lap 1"
+font_size = 150
+
+[node name="information_label" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.22907, 0)
+visible = false
+billboard = 1
+double_sided = false
+font_size = 150
+
+[node name="model" type="MeshInstance3D" parent="."]
+layers = 2
+mesh = ExtResource("2_oquvq")
+
+[node name="modifiers" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 2.42498, 0)
+
+[node name="boost_particle_left" type="GPUParticles3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.939398, 0.338566, -2.8823)
+material_override = SubResource("StandardMaterial3D_3cg5r")
+emitting = false
+amount = 24
+lifetime = 0.5
+fixed_fps = 60
+visibility_aabb = AABB(-4.05084, -1.48586, -1.16389, 8.10169, 2.97171, 2.32778)
+process_material = SubResource("ParticleProcessMaterial_vqe80")
+draw_pass_1 = SubResource("PlaneMesh_hy2mp")
+
+[node name="boost_particle_right" type="GPUParticles3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -0.939, 0.339, -2.882)
+material_override = SubResource("StandardMaterial3D_3cg5r")
+emitting = false
+amount = 24
+lifetime = 0.5
+fixed_fps = 60
+visibility_aabb = AABB(-4.05084, -1.48586, -1.16389, 8.10169, 2.97171, 2.32778)
+process_material = SubResource("ParticleProcessMaterial_vqe80")
+draw_pass_1 = SubResource("PlaneMesh_hy2mp")
+
+[node name="rocks" type="GPUParticles3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, -0.198282, -1.4704)
+material_override = SubResource("StandardMaterial3D_yf41d")
+amount = 30
+lifetime = 0.5
+preprocess = 0.01
+fixed_fps = 60
+visibility_aabb = AABB(-4.05084, -1.48586, -1.16389, 8.10169, 2.97171, 2.32778)
+process_material = SubResource("ParticleProcessMaterial_vqe80")
+draw_pass_1 = SubResource("BoxMesh_pt1b6")
+
+[node name="pivot" type="Node3D" parent="."]
+script = ExtResource("3_47ovy")
+
+[node name="SpringArm3D" type="SpringArm3D" parent="pivot"]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 5.68434e-14, 3.80377, 0)
+
+[node name="Camera3D" type="Camera3D" parent="pivot/SpringArm3D"]
+transform = Transform3D(1, 0, 0, 0, 0.997684, 0.0680153, 0, -0.0680153, 0.997684, 8.29118e-07, 4.023, 9.484)

@@ -1,11 +1,15 @@
-[gd_scene load_steps=22 format=3 uid="uid://bowc2q2f0qoeu"]
+[gd_scene load_steps=46 format=3 uid="uid://bowc2q2f0qoeu"]
 
 [ext_resource type="Script" path="res://scripts/car_scene.gd" id="1_eb7p5"]
 [ext_resource type="Script" path="res://scripts/hud_group.gd" id="2_4kxuh"]
+[ext_resource type="Texture2D" uid="uid://5fmt0mpd3vq4" path="res://textures/boss_bar_0.png" id="3_r00xr"]
 [ext_resource type="Texture2D" uid="uid://danucjkbllvbc" path="res://textures/road.jpg" id="3_w6hqa"]
 [ext_resource type="Script" path="res://scripts/modifiers/laps_1_mod.gd" id="4_6kspr"]
+[ext_resource type="Texture2D" uid="uid://b6ps8qhun5a1o" path="res://textures/boss_bar_over.png" id="4_87enh"]
 [ext_resource type="Texture2D" uid="uid://bg2ak2vx47ynp" path="res://textures/red.jpg" id="4_diauv"]
 [ext_resource type="Script" path="res://scripts/modifiers/enemies_3_modifier.gd" id="5_rkbsc"]
+[ext_resource type="Texture2D" uid="uid://eyo3mnaxdy8" path="res://textures/boss_bar_100.png" id="5_tjqpu"]
+[ext_resource type="FontFile" uid="uid://nt1c31klb8dr" path="res://UpheavalPro.ttf" id="6_o0epg"]
 [ext_resource type="Script" path="res://scripts/map/map_group.gd" id="7_13q30"]
 [ext_resource type="PackedScene" uid="uid://by265jxmxln6t" path="res://scenes/maps/map6.tscn" id="7_dinut"]
 [ext_resource type="Script" path="res://scripts/camera_gimbal.gd" id="7_nha7u"]
@@ -17,9 +21,40 @@
 [ext_resource type="Script" path="res://scripts/player_data.gd" id="11_royli"]
 [ext_resource type="Script" path="res://scripts/modifiers/upgrade_list.gd" id="11_w2dpw"]
 [ext_resource type="Script" path="res://scripts/car/drivers_group.gd" id="12_nww6k"]
-[ext_resource type="Script" path="res://scripts/modifiers/nitrous_type_burst.gd" id="12_xd47j"]
-[ext_resource type="Script" path="res://scripts/modifiers/nitrous_type_hold.gd" id="13_5tn05"]
+[ext_resource type="Script" path="res://scripts/modifiers/nitrous_type_burst_1.gd" id="14_q3sye"]
+[ext_resource type="Script" path="res://scripts/modifiers/nitrous_modifier.gd" id="16_4wmca"]
 [ext_resource type="Script" path="res://scripts/modifiers/perfect_start_1_modifier.gd" id="16_jwuu6"]
+[ext_resource type="Script" path="res://scripts/modifiers/nitrous_type_hold_1.gd" id="16_qowqh"]
+[ext_resource type="Script" path="res://scripts/modifiers/perfect_start_2_modifier.gd" id="17_4co1j"]
+[ext_resource type="Script" path="res://scripts/modifiers/rewind_ability.gd" id="17_mel05"]
+[ext_resource type="Script" path="res://scripts/modifiers/perfect_start_modifier.gd" id="17_qc3u8"]
+[ext_resource type="Script" path="res://scripts/modifiers/nitrous_type_burst_2.gd" id="18_ivo6b"]
+[ext_resource type="Script" path="res://scripts/modifiers/none.gd" id="18_xr31a"]
+[ext_resource type="Script" path="res://scripts/modifiers/restart_ability.gd" id="18_ytpjl"]
+[ext_resource type="Script" path="res://scripts/modifiers/nitrous_type_hold_2.gd" id="19_ga85t"]
+[ext_resource type="Script" path="res://scripts/modifiers/ability.gd" id="19_phlsb"]
+[ext_resource type="Script" path="res://scripts/modifiers/driver_list.gd" id="20_lf827"]
+[ext_resource type="Script" path="res://scripts/camera_pp.gd" id="21_04lpc"]
+[ext_resource type="Shader" path="res://pixelart_stylizer.gdshader" id="22_a3qoa"]
+[ext_resource type="PackedScene" uid="uid://c6n8iejrtax7n" path="res://scenes/drivers/jolteon.tscn" id="22_ae4cf"]
+[ext_resource type="PackedScene" uid="uid://bax55txfgviab" path="res://scenes/drivers/shitface.tscn" id="23_bsxhj"]
+[ext_resource type="PackedScene" uid="uid://d3mtaqk3ogv5s" path="res://scenes/drivers/sheo.tscn" id="23_oe0sv"]
+[ext_resource type="PackedScene" uid="uid://c8g0p4exr44aj" path="res://scenes/drivers/vaporeon.tscn" id="24_3k42v"]
+[ext_resource type="Script" path="res://scripts/modifiers/nitrous_type_burst_3.gd" id="26_u5i75"]
+[ext_resource type="Script" path="res://scripts/modifiers/nitrous_type_hold_3.gd" id="28_a1neh"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_wyhil"]
+size = Vector2(3, 3)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jsy6w"]
+render_priority = 0
+shader = ExtResource("22_a3qoa")
+shader_parameter/shadows_enabled = true
+shader_parameter/highlights_enabled = true
+shader_parameter/shadow_strength = 0.4
+shader_parameter/highlight_strength = 0.1
+shader_parameter/highlight_color = Color(1, 1, 1, 1)
+shader_parameter/shadow_color = Color(0, 0, 0, 1)
 
 [sub_resource type="Environment" id="Environment_w23im"]
 background_mode = 2
@@ -40,12 +75,39 @@ offset_right = 1150.0
 offset_bottom = 646.0
 script = ExtResource("2_4kxuh")
 
+[node name="boss_fight_bar" type="TextureProgressBar" parent="hud_group"]
+visible = false
+layout_mode = 0
+offset_left = 328.0
+offset_top = 100.0
+offset_right = 584.0
+offset_bottom = 116.0
+scale = Vector2(2, 2)
+texture_under = ExtResource("3_r00xr")
+texture_over = ExtResource("4_87enh")
+texture_progress = ExtResource("5_tjqpu")
+
+[node name="boss_name" type="Label" parent="hud_group/boss_fight_bar"]
+layout_mode = 0
+offset_left = 92.6667
+offset_right = 296.667
+offset_bottom = 48.0
+scale = Vector2(0.33, 0.33)
+theme_override_fonts/font = ExtResource("6_o0epg")
+theme_override_font_sizes/font_size = 32
+text = "default_boss_name"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
 [node name="lap_count" type="Label" parent="hud_group"]
 layout_mode = 0
 offset_left = 993.0
 offset_top = 18.0
 offset_right = 1122.0
 offset_bottom = 77.0
+theme_override_fonts/font = ExtResource("6_o0epg")
+theme_override_font_sizes/font_size = 26
 text = "LAP 0/X"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -55,22 +117,26 @@ layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_left = 47.0
-offset_top = -70.0
-offset_right = 130.0
-offset_bottom = -44.0
+offset_left = 55.0
+offset_top = -127.0
+offset_right = 167.0
+offset_bottom = -75.0
 grow_vertical = 0
+theme_override_fonts/font = ExtResource("6_o0epg")
+theme_override_font_sizes/font_size = 31
 text = "Race: 1
-9:00"
+8:00 AM"
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="position_count" type="Label" parent="hud_group"]
 layout_mode = 0
-offset_left = 20.0
-offset_top = 33.0
-offset_right = 149.0
-offset_bottom = 198.0
+offset_left = 1.0
+offset_top = 27.0
+offset_right = 217.0
+offset_bottom = 192.0
+theme_override_fonts/font = ExtResource("6_o0epg")
+theme_override_font_sizes/font_size = 26
 text = "POSITION 1/X
 TARGET: 
 
@@ -83,33 +149,38 @@ horizontal_alignment = 1
 
 [node name="lap_percentage" type="Label" parent="hud_group"]
 layout_mode = 0
-offset_left = 994.0
-offset_top = 75.0
-offset_right = 1123.0
-offset_bottom = 134.0
+offset_left = 993.0
+offset_top = 41.0
+offset_right = 1122.0
+offset_bottom = 100.0
+theme_override_fonts/font = ExtResource("6_o0epg")
+theme_override_font_sizes/font_size = 21
 text = "0% done"
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="car_speedo" type="Label" parent="hud_group" groups=["speedo"]]
 layout_mode = 0
-offset_left = 994.0
-offset_top = 561.0
-offset_right = 1123.0
-offset_bottom = 620.0
+offset_left = 939.0
+offset_top = 553.0
+offset_right = 1179.0
+offset_bottom = 612.0
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 19
-theme_override_font_sizes/font_size = 29
+theme_override_constants/outline_size = 0
+theme_override_fonts/font = ExtResource("6_o0epg")
+theme_override_font_sizes/font_size = 30
 text = "0 km/h"
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="nitrous_bar" type="Label" parent="hud_group"]
 layout_mode = 0
-offset_left = 994.0
+offset_left = 966.0
 offset_top = 474.0
-offset_right = 1123.0
+offset_right = 1151.0
 offset_bottom = 533.0
+theme_override_fonts/font = ExtResource("6_o0epg")
+theme_override_font_sizes/font_size = 24
 text = "NO BOOST"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -120,6 +191,7 @@ offset_left = 2.0
 offset_top = 137.0
 offset_right = 1154.0
 offset_bottom = 275.0
+theme_override_fonts/font = ExtResource("6_o0epg")
 theme_override_font_sizes/font_size = 30
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -142,17 +214,19 @@ offset_top = 528.0
 offset_right = 1120.0
 offset_bottom = 554.0
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 8
+theme_override_fonts/font = ExtResource("6_o0epg")
+theme_override_font_sizes/font_size = 21
 text = "rpm"
 horizontal_alignment = 1
+vertical_alignment = 1
 autowrap_mode = 1
 
 [node name="modifiers_list" type="HBoxContainer" parent="hud_group"]
 layout_mode = 0
-offset_left = 185.0
-offset_top = 25.0
-offset_right = 691.0
-offset_bottom = 89.0
+offset_left = 232.0
+offset_top = 24.0
+offset_right = 738.0
+offset_bottom = 88.0
 theme_override_constants/separation = 13
 
 [node name="map_group" type="Node" parent="." groups=["map_group"]]
@@ -162,6 +236,7 @@ default_modifiers = Array[Resource]([ExtResource("5_rkbsc"), ExtResource("4_6ksp
 [node name="map_list" type="Node" parent="." groups=["map_list"]]
 script = ExtResource("9_tnjxy")
 available_maps_to_roll = Array[Resource]([ExtResource("7_dinut"), ExtResource("10_cyy82"), ExtResource("11_kfjph")])
+available_reward_types_to_roll = Array[Resource]([ExtResource("16_4wmca"), ExtResource("17_qc3u8"), ExtResource("18_xr31a"), ExtResource("19_phlsb")])
 
 [node name="camera_gimbal" type="Node3D" parent="." groups=["camera_group"]]
 script = ExtResource("7_nha7u")
@@ -170,21 +245,49 @@ script = ExtResource("7_nha7u")
 transform = Transform3D(-1, 0, -8.74227e-08, 0, 0.999998, 0, 8.74228e-08, 0, -0.999999, 0, 5, -12)
 
 [node name="camera" type="Camera3D" parent="camera_gimbal/inner_gimbal"]
+transform = Transform3D(0.999997, -0.000164917, 0.00236835, 0.00017643, 0.99999, -0.00486163, -0.00236752, 0.00486203, 0.999986, 0, 0, 0)
+current = true
 fov = 70.0
+script = ExtResource("21_04lpc")
+
+[node name="Postprocess" type="MeshInstance3D" parent="camera_gimbal/inner_gimbal/camera"]
+transform = Transform3D(1, 1.83936e-08, -1.14505e-09, -3.07409e-10, -4.42378e-08, -1, 5.12227e-09, 1, -3.63216e-08, 0.00418702, 0.0515237, -0.931375)
+visible = false
+mesh = SubResource("PlaneMesh_wyhil")
+surface_material_override/0 = SubResource("ShaderMaterial_jsy6w")
 
 [node name="upgrade_list" type="Node" parent="." groups=["upgrade_list"]]
 script = ExtResource("11_w2dpw")
-available_upgrades_to_roll = Array[Resource]([ExtResource("13_5tn05"), ExtResource("12_xd47j"), ExtResource("16_jwuu6")])
+available_upgrades_to_roll = Array[Resource]([ExtResource("16_qowqh"), ExtResource("16_jwuu6"), ExtResource("17_mel05"), ExtResource("18_ytpjl"), ExtResource("14_q3sye")])
+burst_nitrous_upgrades = Array[Resource]([ExtResource("14_q3sye"), ExtResource("18_ivo6b"), ExtResource("26_u5i75")])
+hold_nitrous_upgrades = Array[Resource]([ExtResource("16_qowqh"), ExtResource("19_ga85t"), ExtResource("28_a1neh")])
+perfect_start_upgrades = Array[Resource]([ExtResource("16_jwuu6"), ExtResource("17_4co1j")])
+
+[node name="driver_list" type="Node" parent="." groups=["driver_list"]]
+script = ExtResource("20_lf827")
 
 [node name="drivers_group" type="Node" parent="." groups=["drivers_group"]]
 script = ExtResource("12_nww6k")
+vehicle_array = Array[PackedScene]([ExtResource("22_ae4cf"), ExtResource("24_3k42v"), ExtResource("23_oe0sv")])
+boss_vehicle_array = Array[PackedScene]([ExtResource("23_bsxhj")])
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." groups=["environment_group"]]
 environment = SubResource("Environment_w23im")
 script = ExtResource("10_68b52")
 
 [node name="sunlight_early" type="DirectionalLight3D" parent="WorldEnvironment" groups=["sunlight"]]
-transform = Transform3D(1, 0, 0, 0, 0.393942, 0.919135, 0, -0.919135, 0.393942, 0, 53.8771, 0)
+transform = Transform3D(1, 0, 0, 0, 0.393942, 0.919135, 0, -0.919135, 0.393942, 0, 39.4839, 25.889)
+light_color = Color(0.968627, 0.772549, 0.388235, 1)
+light_energy = 2.053
+shadow_enabled = true
+shadow_bias = 10.0
+shadow_opacity = 0.7
+shadow_blur = 0.0
+directional_shadow_mode = 0
+sky_mode = 1
+
+[node name="sunlight_midday" type="DirectionalLight3D" parent="WorldEnvironment" groups=["sunlight"]]
+transform = Transform3D(1, 0, 0, 0, 0.393942, 0.919135, 0, -0.919135, 0.393942, 0, 53.8771, 7.02309)
 light_color = Color(0.933333, 0.815686, 0.611765, 1)
 light_energy = 3.0
 shadow_enabled = true
@@ -195,7 +298,7 @@ directional_shadow_mode = 0
 sky_mode = 1
 
 [node name="sunlight_late" type="DirectionalLight3D" parent="WorldEnvironment" groups=["sunlight"]]
-transform = Transform3D(1, 0, 0, 0, 0.894934, 0.446198, 0, -0.446198, 0.894934, 0, 46.7119, 0)
+transform = Transform3D(1, 0, 0, 0, 0.894934, 0.446198, 0, -0.446198, 0.894934, 0, 46.7119, -8.9461)
 light_color = Color(0.992157, 0.619608, 0.403922, 1)
 light_energy = 3.0
 shadow_enabled = true
@@ -205,7 +308,7 @@ directional_shadow_mode = 0
 sky_mode = 1
 
 [node name="sunlight_night" type="DirectionalLight3D" parent="WorldEnvironment" groups=["sunlight"]]
-transform = Transform3D(1, 0, 0, 0, 0.781477, 0.623934, 0, -0.623934, 0.781477, 0, 39.1477, 0)
+transform = Transform3D(1, 0, 0, 0, 0.781477, 0.623934, 0, -0.623934, 0.781477, 0, 39.1477, -25.2869)
 light_color = Color(0.160784, 0.270588, 0.27451, 1)
 light_energy = 3.0
 shadow_enabled = true

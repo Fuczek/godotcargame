@@ -1,5 +1,7 @@
 extends "res://scripts/car/car3d.gd"
 
+@export var vehicle_nickname : String = "ai"
+
 var angle3
 var new_angle
 var slow : float = 0
@@ -8,7 +10,7 @@ var resetting : bool = false
 func steer(delta) -> Array:
 	#set checkpoint
 	if (checkpoints.size() > 0 and self.next_checkpoint_position == null):
-		self.collect_checkpoint(self.name)
+		self.collect_checkpoint(self.name, Vector3(0,0,0))
 		
 	#go to next checkpoint
 	var direction	
@@ -56,10 +58,10 @@ func steer(delta) -> Array:
 	
 	return [steering, acceleration]
 
-func collect_checkpoint(body_name):
+func collect_checkpoint(body_name, checkpoint_position):
 	if (body_name == self.name):
 		if self.next_checkpoint_id < checkpoints.size():
-			self.last_checkpoint_position = checkpoints[self.last_checkpoint_id]
+			self.last_checkpoint_position = checkpoint_position
 			self.next_checkpoint_position = checkpoints[self.next_checkpoint_id] + Vector3(randf_range(-1, 1), 0, randf_range(-1, 1))
 			self.next_checkpoint_id += 1
 			self.last_checkpoint_id += 1

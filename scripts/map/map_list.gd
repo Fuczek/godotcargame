@@ -4,6 +4,7 @@ class_name MapList
 @onready var map_menu = preload("res://scenes/next_map_menu.tscn")
 @onready var map_button = preload("res://scenes/map_button.tscn")
 @export var available_maps_to_roll : Array[Resource]
+@export var available_reward_types_to_roll : Array[Resource]
 
 var amount_of_maps_to_roll : int
 var maps_to_show : Array[Resource]
@@ -25,6 +26,7 @@ func randomize_next_map(restart : bool):
 	#We reset the available maps to roll to default array.
 	available_maps_to_roll = available_maps_default.duplicate(true)
 	var map_random_modifiers : Array = []
+	var rewards_to_show : Array = []
 	
 	#We first choose the amount of maps to roll from the list and show to the player:
 	if restart:
@@ -41,27 +43,32 @@ func randomize_next_map(restart : bool):
 	#for amount of maps to roll, if the available_maps array is not empty, we pick a random map. 
 	#Then we erase that map from the avaialble_maps array, and add it to the array to show to the
 	#player. The player can choose one of the maps that were chosen.
+
+	var rewards_scripts : Array[Resource]
 	for n in amount_of_maps_to_roll:
 		if (available_maps_to_roll.size() > 0):
 			var chosen_map = pick_random_map()
 			available_maps_to_roll.erase(chosen_map)
 			maps_to_show.append(chosen_map)
+			var reward_script = randomize_map_rewards()
+			rewards_scripts.append(reward_script)
+			rewards_to_show.append(reward_script.icon)
 			map_random_modifiers.append(randomize_map_modifiers())
 	
 	#for each map that has been randomly chosen, we emit a singal to the HUD to instantiate
 	#a button that will spawn the specified map.
 	var id = 0
 	for map in maps_to_show:
-		emit_signal("instantiate_button", map, map_random_modifiers[id])
+		emit_signal("instantiate_button", map, map_random_modifiers[id], rewards_scripts[id], rewards_to_show[id])
 		id += 1
-		
+	
 	maps_to_show.clear()
 
 func randomize_map_modifiers():
 	var modifiers : Array[Resource]
 	
 	#create lap amount modifier:
-	var random_lap_number : int = randi_range(1, 1)
+	var random_lap_number : int = randi_range(1, 3)
 	var lap_modifier : Resource
 	match(random_lap_number):
 		1:
@@ -84,3 +91,9 @@ func randomize_map_modifiers():
 	
 	modifiers.append(enemy_amount)
 	return modifiers
+
+func randomize_map_rewards():
+	var random_reward = available_reward_types_to_roll.pick_random()
+	var random_reward_resource = random_reward.new()
+	return random_reward_resource
+	

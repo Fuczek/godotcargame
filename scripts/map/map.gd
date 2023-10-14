@@ -18,6 +18,8 @@ var race_in_process : bool = false
 var results : Array
 var player_target: int
 var modifiers : Array[Resource]
+var boss_name : String = "default boss name"
+var rewards
 
 signal camera_follow
 signal camera_reset
@@ -27,6 +29,10 @@ signal show_map_choice
 signal show_upgrade_choice
 signal restart_game
 signal add_modifiers
+signal enable_boss_hud
+signal update_boss_hud
+signal disable_boss_hud
+signal on_checkpoint_spawn
 
 func _ready():
 	race_in_process = false
@@ -63,6 +69,11 @@ func _ready():
 	#check positions
 	map_length = map_path_checkpoints.curve.get_baked_length()
 	update_positions.connect(get_tree().get_first_node_in_group("hud_group").update_positions)
+		
+	if get_tree().get_first_node_in_group("player_data").player_race % 5 == 0:
+		enable_boss_hud.connect(get_tree().get_first_node_in_group("hud_group").enable_boss_hud)
+		update_boss_hud.connect(get_tree().get_first_node_in_group("hud_group").update_boss_hud)
+		emit_signal("enable_boss_hud", map_length, boss_name)
 	
 	set_player_target()
 
@@ -72,9 +83,12 @@ func _process(delta):
 	for driver in drivers:
 		if !driver.is_in_group("player"):
 			driver_positions.append([driver.name, snapped(map_path_checkpoints.curve.get_closest_offset(driver.position) + (player.lap_completed-1) * map_path_checkpoints.curve.get_baked_length(), 0)])
+			emit_signal("update_boss_hud", snapped(map_path_checkpoints.curve.get_closest_offset(player.position) + (player.lap_completed-1) * map_path_checkpoints.curve.get_baked_length(), 0))
 		else:
 			driver_positions.append([player.name, snapped(map_path_checkpoints.curve.get_closest_offset(player.position) + (player.lap_completed-1) * map_path_checkpoints.curve.get_baked_length(), 0)])
+	
 	emit_signal("update_positions", driver_positions, player, player_target)
+	
 
 	if Input.is_action_just_pressed("ui_down"):
 		instantiate_traffic()
@@ -90,13 +104,34 @@ func instantiate_player(player_name):
 
 
 func instantiate_ai_drivers(ai_names):
+	if get_tree().get_first_node_in_group("player_data").player_race % 5 == 0:
+		var boss_vehicle_array = get_tree().get_first_node_in_group("drivers_group").boss_vehicle_array.duplicate()
+		var enemy = enemy_ai_car.instantiate()
+		var data = boss_vehicle_array.pick_random()
+		var data_instance = data.instantiate()
+		enemy.add_child(data_instance)
+		enemy.name = data_instance.driver_name
+		boss_name = enemy.name
+		enemy.set_starting_position(starting_position, 1)
+		enemy.checkpoints = checkpoints
+		enemy.acceleration = 2
+		enemy.checkpoints_in_one_lap = checkpoints_in_one_lap
+		get_tree().get_first_node_in_group("drivers_group").add_child(enemy)
+		return
+		
+	var vehicle_array = get_tree().get_first_node_in_group("drivers_group").vehicle_array.duplicate()
 	for n in enemies:
 		var enemy = enemy_ai_car.instantiate()
-		enemy.name = ai_names[n]
+		var data = vehicle_array.pick_random()
+		vehicle_array.erase(data)
+		var data_instance = data.instantiate()
+		enemy.add_child(data_instance)
+		enemy.name = data_instance.driver_name
 		enemy.set_starting_position(starting_position, n+1)
 		enemy.checkpoints = checkpoints
-		enemy.acceleration = 0.9
+		enemy.acceleration = 1
 		enemy.checkpoints_in_one_lap = checkpoints_in_one_lap
+		
 		get_tree().get_first_node_in_group("drivers_group").add_child(enemy)
 
 func instantiate_traffic():
@@ -114,17 +149,21 @@ func driver_finished_race(racer):
 		
 		var info_text
 		if results.size() <= player_target:
+		#if pos <= player_target:
 			info_text = "Race finished.\nFinished " + str(results.size()) + "."
 			emit_signal("update_info", info_text)
 			await get_tree().create_timer(1).timeout
+			disable_boss_hud.connect(get_tree().get_first_node_in_group("hud_group").disable_boss_hud)
+			emit_signal("disable_boss_hud")
 			connect_show_upgrade_choice()
 		else:
 			info_text = "You didn't qualify for the next race.\nYou finished " + str(results.size()) + "."
 			emit_signal("update_info", info_text)
 			await get_tree().create_timer(1).timeout
+			disable_boss_hud.connect(get_tree().get_first_node_in_group("hud_group").disable_boss_hud)
+			emit_signal("disable_boss_hud")
 			restart_game.connect(get_tree().get_first_node_in_group("hud_group").restart_game)
 			emit_signal("restart_game")
-			
 	else:
 		results.append(racer.name)
 
@@ -138,7 +177,10 @@ func connect_show_map_choice():
 	get_tree().get_first_node_in_group("player_data").update_player_race()
 
 func set_player_target():
-	player_target = randi_range(1, clamp(enemies, 1, 3))
+	if get_tree().get_first_node_in_group("player_data").player_race % 5 == 0:
+		player_target = 1 
+	else:
+		player_target = randi_range(1, clamp(enemies, 1, 3))
 	var info_text = "TARGET:\n FINISH "
 	match(player_target):
 			1:

@@ -1,10 +1,51 @@
-[gd_scene load_steps=2 format=3 uid="uid://bp1yvnv2d231l"]
+[gd_scene load_steps=7 format=3 uid="uid://bp1yvnv2d231l"]
 
+[ext_resource type="FontFile" uid="uid://nt1c31klb8dr" path="res://UpheavalPro.ttf" id="1_bvinh"]
 [ext_resource type="Script" path="res://scripts/hud/map_button.gd" id="1_gkl4g"]
+[ext_resource type="Texture2D" uid="uid://cxxnxolyosork" path="res://textures/nitro1.png" id="2_5cshf"]
+[ext_resource type="Texture2D" uid="uid://b8ukpab0xnnd4" path="res://textures/sign_bg.png" id="2_rqwof"]
+[ext_resource type="Texture2D" uid="uid://boeqifnbcxong" path="res://textures/sign_arrow_straight.png" id="2_uy43o"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_heqy5"]
+bg_color = Color(0.301961, 0.705882, 0.278431, 1)
 
 [node name="Button" type="Button"]
 custom_minimum_size = Vector2(200, 200)
-text = "map1"
+offset_right = 200.0
+offset_bottom = 200.0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+theme_override_constants/h_separation = 0
+theme_override_fonts/font = ExtResource("1_bvinh")
+theme_override_font_sizes/font_size = 25
+theme_override_styles/normal = SubResource("StyleBoxFlat_heqy5")
+text = "valley run
+
+speedtrap
+
+🚗 x3
+
+🔃 x4
+"
+icon = ExtResource("2_uy43o")
+clip_text = true
 script = ExtResource("1_gkl4g")
+
+[node name="bg_color" type="TextureRect" parent="."]
+visible = false
+layout_mode = 0
+offset_right = 1000.0
+offset_bottom = 1000.0
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("2_rqwof")
+
+[node name="reward_icon" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 145.0
+offset_top = 144.0
+offset_right = 1145.0
+offset_bottom = 1144.0
+scale = Vector2(0.075, 0.075)
+texture = ExtResource("2_5cshf")
 
 [connection signal="pressed" from="." to="." method="_on_pressed"]

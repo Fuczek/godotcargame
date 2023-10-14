@@ -1,0 +1,12 @@
+[gd_scene load_steps=5 format=3 uid="uid://c6n8iejrtax7n"]
+
+[ext_resource type="Script" path="res://scripts/drivers/driver.gd" id="1_4ubtu"]
+[ext_resource type="ArrayMesh" uid="uid://bs5rof1a4o7lg" path="res://golf-joined.tres" id="2_q2p4a"]
+[ext_resource type="Script" path="res://scripts/modifiers/perfect_start_1_modifier.gd" id="3_gabdq"]
+[ext_resource type="Script" path="res://scripts/modifiers/nitrous_type_hold_1.gd" id="4_aiido"]
+
+[node name="data" type="Node"]
+script = ExtResource("1_4ubtu")
+driver_name = "jolteon"
+vehicle_model = ExtResource("2_q2p4a")
+modifiers_array = Array[Resource]([ExtResource("3_gabdq"), ExtResource("4_aiido")])

@@ -10,6 +10,7 @@ var enemies : int = 0
 var player_lap : int = 1
 var checkpoints : Array
 var length : float = 0
+var race_rewards : Array[Resource]
 
 func _ready():
 	new_lap_count.connect(get_tree().get_first_node_in_group("hud_group").update_lap_count)
@@ -46,3 +47,37 @@ func update_modifiers(modifiers):
 		#enemy count modifier
 		if mod != null and mod.has_method("getEnemyCount"):
 			enemies = mod.getEnemyCount()
+
+func update_rewards(rewards):
+	race_rewards.clear()
+	
+	var available_upgrades = get_tree().get_first_node_in_group("upgrade_list").available_upgrades_default
+	print(rewards.icon)
+	print("rewards:", rewards, "available:", available_upgrades)
+	if rewards != null and rewards.has_method("getNitrousType"):
+		for upgrade in available_upgrades:
+			var upgr = upgrade.new()
+			if upgr != null and upgr.has_method("getNitrousType"):
+				race_rewards.append(upgrade)
+		return
+				
+	elif rewards != null and rewards.has_method("perfectStart"):
+		for upgrade in available_upgrades:
+			var upgr = upgrade.new()
+			if upgr != null and upgr.has_method("perfectStart"):
+				race_rewards.append(upgrade)
+		return
+				
+	elif rewards != null and rewards.has_method("isAbility"):
+		for upgrade in available_upgrades:
+			var upgr = upgrade.new()
+			print(upgr.title)
+			if upgr != null and upgr.has_method("isAbility"):
+				race_rewards.append(upgrade)
+		return
+				
+	elif rewards != null and rewards.has_method("isNone"):
+		race_rewards.clear()
+		return
+	
+	

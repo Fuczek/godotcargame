@@ -1,0 +1,13 @@
+[gd_scene load_steps=4 format=3 uid="uid://d3mtaqk3ogv5s"]
+
+[ext_resource type="Script" path="res://scripts/drivers/driver.gd" id="1_t6glq"]
+[ext_resource type="ArrayMesh" uid="uid://bs5rof1a4o7lg" path="res://golf-joined.tres" id="2_uvfhl"]
+[ext_resource type="Script" path="res://scripts/modifiers/nitrous_type_burst_1.gd" id="3_w63xe"]
+
+[node name="data" type="Node"]
+script = ExtResource("1_t6glq")
+driver_name = "sheo"
+vehicle_model = ExtResource("2_uvfhl")
+modifiers_array = Array[Resource]([ExtResource("3_w63xe")])
+
+[connection signal="script_changed" from="." to="." method="_on_script_changed"]

@@ -1,0 +1,14 @@
+[gd_scene load_steps=5 format=3 uid="uid://c8g0p4exr44aj"]
+
+[ext_resource type="Script" path="res://scripts/drivers/driver.gd" id="1_ucsxw"]
+[ext_resource type="ArrayMesh" uid="uid://bs5rof1a4o7lg" path="res://golf-joined.tres" id="2_2babr"]
+[ext_resource type="Script" path="res://scripts/modifiers/perfect_start_1_modifier.gd" id="3_cukql"]
+[ext_resource type="Script" path="res://scripts/modifiers/nitrous_type_burst_1.gd" id="3_yltc3"]
+
+[node name="data" type="Node"]
+script = ExtResource("1_ucsxw")
+driver_name = "vaporeon"
+vehicle_model = ExtResource("2_2babr")
+modifiers_array = Array[Resource]([ExtResource("3_yltc3"), ExtResource("3_cukql")])
+
+[connection signal="script_changed" from="." to="." method="_on_script_changed"]

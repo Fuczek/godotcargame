@@ -1,19 +1,23 @@
-[gd_scene format=3 uid="uid://ciyq566g88571"]
+[gd_scene load_steps=2 format=3 uid="uid://ciyq566g88571"]
+
+[ext_resource type="FontFile" uid="uid://nt1c31klb8dr" path="res://UpheavalPro.ttf" id="1_4w0uy"]
 
 [node name="next_map_menu" type="ColorRect"]
-offset_left = 201.0
-offset_top = 60.0
-offset_right = 951.0
-offset_bottom = 560.0
+offset_left = 191.0
+offset_top = 65.0
+offset_right = 941.0
+offset_bottom = 565.0
 color = Color(0.364706, 0.364706, 0.364706, 1)
 
 [node name="Label" type="Label" parent="."]
 layout_mode = 0
-offset_left = 319.0
-offset_top = 62.0
-offset_right = 427.0
-offset_bottom = 88.0
-text = "Pick next race"
+offset_left = 1.0
+offset_top = 42.0
+offset_right = 748.0
+offset_bottom = 95.0
+theme_override_fonts/font = ExtResource("1_4w0uy")
+theme_override_font_sizes/font_size = 40
+text = "Choose next race"
 horizontal_alignment = 1
 vertical_alignment = 1
 

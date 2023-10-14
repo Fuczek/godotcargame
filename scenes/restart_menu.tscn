@@ -1,6 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://3asco1aog1cv"]
+[gd_scene load_steps=4 format=3 uid="uid://3asco1aog1cv"]
 
-[ext_resource type="Script" path="res://scripts/hud/restart_button.gd" id="1_qvaa2"]
+[ext_resource type="Script" path="res://scripts/hud/restart_menu.gd" id="1_3e7mn"]
+[ext_resource type="Texture2D" uid="uid://bwsydwtf8wic2" path="res://textures/restart.png" id="1_pgbfu"]
+[ext_resource type="FontFile" uid="uid://nt1c31klb8dr" path="res://UpheavalPro.ttf" id="2_heuvg"]
 
 [node name="restart_menu" type="ColorRect"]
 offset_left = 201.0
@@ -8,36 +10,78 @@ offset_top = 60.0
 offset_right = 951.0
 offset_bottom = 560.0
 color = Color(0.364706, 0.364706, 0.364706, 1)
+script = ExtResource("1_3e7mn")
 
-[node name="Label" type="Label" parent="."]
+[node name="title" type="Label" parent="."]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -54.0
-offset_top = -150.0
-offset_right = 54.0
-offset_bottom = -78.0
+offset_left = -374.0
+offset_top = -235.0
+offset_right = 375.0
+offset_bottom = -163.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_fonts/font = ExtResource("2_heuvg")
+theme_override_font_sizes/font_size = 49
 text = "Try again?"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Button" type="Button" parent="."]
+[node name="reset_button" type="Button" parent="."]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -153.0
-offset_top = -20.5
-offset_right = 153.0
-offset_bottom = 106.5
+offset_left = -349.0
+offset_top = 160.0
+offset_right = -170.0
+offset_bottom = 226.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "Let's race!"
-script = ExtResource("1_qvaa2")
+theme_override_fonts/font = ExtResource("2_heuvg")
+theme_override_font_sizes/font_size = 25
+text = "Back to 
+beginning"
+
+[node name="restart_button" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -143.0
+offset_top = 160.0
+offset_right = 350.0
+offset_bottom = 226.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("2_heuvg")
+theme_override_font_sizes/font_size = 25
+text = "Restart the race (x remaining)"
+
+[node name="reset_icon" type="TextureButton" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -129.0
+offset_top = -132.0
+offset_right = 871.0
+offset_bottom = 868.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.25, 0.25)
+disabled = true
+texture_normal = ExtResource("1_pgbfu")
+
+[connection signal="pressed" from="reset_button" to="." method="_on_reset_button_pressed"]
+[connection signal="pressed" from="restart_button" to="." method="_on_restart_button_pressed"]

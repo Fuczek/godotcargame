@@ -24,7 +24,7 @@ func follow_car(delta):
 	#4 10 4
 	#var new_cam_pos = lerp(self.position, Vector3(car.global_transform.origin.x, car.global_transform.origin.y + 3 + translation_distance, car.global_transform.origin.z + -2 - translation_distance), 0.5)
 	var new_cam_pos = lerp(self.position, Vector3(car.global_transform.origin.x, car.global_transform.origin.y, car.global_transform.origin.z), 0.5)
-	var new_cam_rot = lerp(self.rotation_degrees, Vector3(self.rotation_degrees.x, car.rotation_degrees.y, self.rotation_degrees.z), 0.5) 
+	var new_cam_rot = lerp(self.rotation_degrees, Vector3(self.rotation_degrees.x, car.rotation_degrees.y, self.rotation_degrees.z), 0.3) 
 	self.position = new_cam_pos
 	self.rotation_degrees = new_cam_rot
 

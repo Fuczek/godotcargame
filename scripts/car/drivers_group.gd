@@ -1,5 +1,8 @@
 extends Node
 
+@export var vehicle_array : Array[PackedScene]
+@export var boss_vehicle_array : Array[PackedScene]
+
 func clear_active_cars():
 	var children_list = self.get_children()
 	if self.get_children():

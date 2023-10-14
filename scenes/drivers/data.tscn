@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cnenh1gk2bltq"]
+
+[ext_resource type="Script" path="res://scripts/drivers/driver.gd" id="1_rwqqs"]
+
+[node name="data" type="Node"]
+script = ExtResource("1_rwqqs")

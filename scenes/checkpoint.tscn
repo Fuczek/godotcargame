@@ -24,7 +24,7 @@ height = 4.0
 radius = 15.0
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_js6ok"]
-size = Vector3(20, 100, 20)
+size = Vector3(63.5465, 158.65, 3.05437)
 
 [node name="Checkpoint" type="Area3D"]
 script = ExtResource("1_5625o")
@@ -54,6 +54,14 @@ shape = SubResource("SphereShape3D_pcyt5")
 disabled = true
 
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="."]
+visible = false
 shape = SubResource("BoxShape3D_js6ok")
+
+[node name="find_floor_raycast" type="RayCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 14.5823, 0)
+target_position = Vector3(0, -1000, 0)
+collide_with_areas = true
+debug_shape_custom_color = Color(0, 0.768627, 0.12549, 1)
+debug_shape_thickness = 5
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

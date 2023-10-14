@@ -1,6 +1,8 @@
 extends Modifier
 class_name NitrousModifier
 
+var icon = "res://textures/nitro_category.png"
+
 func getNitrousType() -> String:
 	return ""
 

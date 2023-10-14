@@ -1,0 +1,14 @@
+[gd_scene load_steps=5 format=3 uid="uid://bax55txfgviab"]
+
+[ext_resource type="Script" path="res://scripts/drivers/driver.gd" id="1_r84jg"]
+[ext_resource type="ArrayMesh" uid="uid://ckyknyuxd8mei" path="res://golf-joined-boss1.tres" id="2_sxr38"]
+[ext_resource type="Script" path="res://scripts/modifiers/nitrous_type_burst_2.gd" id="3_kk2uy"]
+[ext_resource type="Script" path="res://scripts/modifiers/perfect_start_1_modifier.gd" id="4_vwpkj"]
+
+[node name="data" type="Node"]
+script = ExtResource("1_r84jg")
+driver_name = "boss"
+vehicle_model = ExtResource("2_sxr38")
+modifiers_array = Array[Resource]([ExtResource("3_kk2uy"), ExtResource("4_vwpkj")])
+
+[connection signal="script_changed" from="." to="." method="_on_script_changed"]
